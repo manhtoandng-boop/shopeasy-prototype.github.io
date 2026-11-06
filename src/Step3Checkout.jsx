@@ -1,73 +1,44 @@
 import React, { useState } from 'react';
 
 export default function Step3Checkout({ onSubmitOrder }) {
-  const [formData, setFormData] = useState({ name: '', phone: '', address: '', paymentMethod: 'COD' });
+  const [form, setForm] = useState({ name: '', phone: '', address: '' });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.phone || !formData.address) {
-      alert('Vui lòng điền đầy đủ thông tin nhận hàng!');
+    if (!form.name || !form.phone || !form.address) {
+      alert('Vui lòng nhập đầy đủ thông tin!');
       return;
     }
-    onSubmitOrder(formData);
+    onSubmitOrder(form);
   };
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-sm border border-blue-100 mb-6">
-      <h2 className="text-lg font-bold text-blue-900 flex items-center gap-2 mb-4">
-        <span className="bg-blue-600 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">3</span>
-        ĐẶT HÀNG
-      </h2>
-
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Họ tên</label>
-          <input 
-            type="text" 
-            placeholder="Nguyễn Văn A"
-            value={formData.name}
-            onChange={(e) => setFormData({...formData, name: e.target.value})}
-            className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Số điện thoại</label>
-          <input 
-            type="text" 
-            placeholder="0912345678"
-            value={formData.phone}
-            onChange={(e) => setFormData({...formData, phone: e.target.value})}
-            className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Địa chỉ nhận hàng</label>
-          <input 
-            type="text" 
-            placeholder="123 Đường ABC, Quận XYZ, TP.HCM"
-            value={formData.address}
-            onChange={(e) => setFormData({...formData, address: e.target.value})}
-            className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Phương thức thanh toán</label>
-          <select 
-            value={formData.paymentMethod}
-            onChange={(e) => setFormData({...formData, paymentMethod: e.target.value})}
-            className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="COD">Thanh toán khi nhận hàng (COD)</option>
-            <option value="Banking">Chuyển khoản ngân hàng</option>
-          </select>
-        </div>
-
-        <button 
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2.5 rounded-lg font-medium hover:bg-blue-700 transition"
-        >
-          Xác nhận Đặt hàng
+    <div className="bg-white p-6 rounded-xl border border-blue-100 shadow-sm max-w-md mx-auto">
+      <h2 className="text-lg font-bold text-blue-900 mb-4">3. Thông tin đặt hàng</h2>
+      <form onSubmit={handleSubmit} className="space-y-3">
+        <input 
+          type="text" 
+          placeholder="Họ tên" 
+          value={form.name} 
+          onChange={e => setForm({...form, name: e.target.value})}
+          className="w-full border p-2 text-xs rounded" 
+        />
+        <input 
+          type="text" 
+          placeholder="Số điện thoại" 
+          value={form.phone} 
+          onChange={e => setForm({...form, phone: e.target.value})}
+          className="w-full border p-2 text-xs rounded" 
+        />
+        <input 
+          type="text" 
+          placeholder="Địa chỉ nhận hàng" 
+          value={form.address} 
+          onChange={e => setForm({...form, address: e.target.value})}
+          className="w-full border p-2 text-xs rounded" 
+        />
+        <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded text-xs font-bold hover:bg-blue-700">
+          XÁC NHẬN ĐẶT HÀNG
         </button>
       </form>
     </div>

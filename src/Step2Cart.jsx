@@ -1,46 +1,38 @@
 import React from 'react';
 
 export default function Step2Cart({ cart, onUpdateQuantity, onRemoveItem, onNextStep }) {
-  const totalAmount = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-sm border border-blue-100 mb-6">
-      <h2 className="text-lg font-bold text-blue-900 flex items-center gap-2 mb-4">
-        <span className="bg-blue-600 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">2</span>
-        THÊM VÀO GIỎ HÀNG
-      </h2>
-
+    <div className="bg-white p-6 rounded-xl border border-blue-100 shadow-sm">
+      <h2 className="text-lg font-bold text-blue-900 mb-4">2. Giỏ hàng của bạn</h2>
       {cart.length === 0 ? (
-        <p className="text-gray-500 text-sm">Giỏ hàng của bạn đang trống.</p>
+        <p className="text-sm text-gray-500">Giỏ hàng đang trống.</p>
       ) : (
-        <div>
+        <div className="space-y-4">
           {cart.map(item => (
-            <div key={item.id} className="flex justify-between items-center border-b py-3">
+            <div key={item.id} className="flex justify-between items-center border-b pb-2">
               <div>
-                <h4 className="font-medium text-gray-800">{item.name}</h4>
-                <p className="text-blue-600 text-sm">{item.price.toLocaleString()}đ</p>
+                <p className="font-semibold text-sm">{item.name}</p>
+                <p className="text-xs text-gray-500">{item.price.toLocaleString('vi-VN')} đ</p>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="flex items-center border rounded">
-                  <button onClick={() => onUpdateQuantity(item.id, item.quantity - 1)} className="px-2 py-1 bg-gray-100">-</button>
-                  <span className="px-3">{item.quantity}</span>
-                  <button onClick={() => onUpdateQuantity(item.id, item.quantity + 1)} className="px-2 py-1 bg-gray-100">+</button>
-                </div>
-                <button onClick={() => onRemoveItem(item.id)} className="text-red-500 hover:text-red-700 text-sm">🗑️ Xóa</button>
+              <div className="flex items-center space-x-2">
+                <button onClick={() => onUpdateQuantity(item.id, item.quantity - 1)} className="px-2 py-1 bg-gray-200 rounded text-xs">-</button>
+                <span className="text-sm font-bold">{item.quantity}</span>
+                <button onClick={() => onUpdateQuantity(item.id, item.quantity + 1)} className="px-2 py-1 bg-gray-200 rounded text-xs">+</button>
+                <button onClick={() => onRemoveItem(item.id)} className="text-xs text-red-500 ml-2">Xóa</button>
               </div>
             </div>
           ))}
-
-          <div className="flex justify-between items-center mt-4 pt-4 border-t font-bold">
-            <span>Tổng tiền ngay lập tức:</span>
-            <span className="text-blue-600 text-lg">{totalAmount.toLocaleString()}đ</span>
+          <div className="flex justify-between items-center pt-4 border-t">
+            <span className="font-bold text-sm">Tổng cộng:</span>
+            <span className="font-bold text-blue-600">{total.toLocaleString('vi-VN')} đ</span>
           </div>
-
           <button 
-            onClick={onNextStep}
-            className="mt-4 w-full bg-blue-600 text-white py-2.5 rounded-lg font-medium hover:bg-blue-700 transition"
+            onClick={onNextStep} 
+            className="w-full bg-blue-600 text-white py-2 rounded text-sm font-medium hover:bg-blue-700"
           >
-            Tiến hành Đặt hàng ➡️
+            Chuyển sang Đặt hàng
           </button>
         </div>
       )}
